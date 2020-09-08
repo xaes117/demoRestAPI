@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.DataStructures.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +13,6 @@ public class DataManagerTests {
     @BeforeEach
     void setUp() throws Exception {
         this.manager = new DataManager();
-        this.manager.loadCityData();
-        this.manager.loadPersonData();
     }
 
     @Test
@@ -30,6 +29,7 @@ public class DataManagerTests {
     }
 
     @Test
-    void withinDistanceTest() {
+    void uniqueResidentsTest() {
+        assertEquals(6, this.manager.populationByCity("London"));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.DataStructures;
 
 import com.example.demo.Lib.MathLib;
 
@@ -10,10 +10,6 @@ public class City {
 
     public City(String name) {
         this.name = name;
-    }
-
-    public double distanceFromCity(double lon, double lat) {
-        return MathLib.distance(this.longitude, this.latitude, lon, lat);
     }
 
     public void setLongitude(double longitude) {
