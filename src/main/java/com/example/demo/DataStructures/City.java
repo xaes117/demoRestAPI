@@ -1,10 +1,8 @@
 package com.example.demo.DataStructures;
 
-import com.example.demo.Lib.MathLib;
-
 public class City {
 
-    private String name;
+    private final String name;
     private double longitude;
     private double latitude;
 

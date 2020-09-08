@@ -5,16 +5,23 @@ import com.example.demo.DataStructures.Person;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.Set;
 
 public class DataManager {
 
-    private Set<City> cityList;
-    private Set<Person> personSet;
+    private final Set<City> cityList;
+    private final Set<Person> personSet;
 
     public DataManager() throws Exception {
         this.cityList = new HashSet<>();
@@ -24,11 +31,11 @@ public class DataManager {
         this.loadPersonData();
     }
 
-    public void loadCityData() throws Exception {
+    private void loadCityData() throws Exception {
 
         // Load file
         URL resource = getClass().getClassLoader().getResource("worldcities.csv");
-        Scanner scanner = new Scanner(new File(resource.toURI()));
+        Scanner scanner = new Scanner(new File(Objects.requireNonNull(resource).toURI()));
 
         // Read file
         while (scanner.hasNextLine()) {
@@ -71,7 +78,7 @@ public class DataManager {
         }
     }
 
-    public void loadPersonData() {
+    private void loadPersonData() {
 
         // Use overloaded function unless you have specific url in mind
         JSONArray personList = new JSONArray(this.getDataFromURL());
@@ -168,10 +175,6 @@ public class DataManager {
 
         return outputString.toString();
 
-    }
-
-    public Set<City> getCityList() {
-        return this.cityList;
     }
 
     public Set<Person> getPersonSet() {

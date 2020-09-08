@@ -2,7 +2,7 @@ package com.example.demo.DataStructures;
 
 public class Person {
 
-    private int id;
+    private final int id;
     private double longitude;
     private double latitude;
 
