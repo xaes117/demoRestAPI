@@ -3,16 +3,71 @@ package com.example.demo;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class DataManager {
+
+    private Set<City> cityList;
+
+    public DataManager() throws Exception {
+        this.cityList = new HashSet<>();
+        this.loadCityData();
+    }
+
+    public void loadCityData() throws Exception {
+
+        // Load file
+        URL resource = getClass().getClassLoader().getResource("worldcities.csv");
+
+
+        Scanner scanner = new Scanner(new File(resource.toURI()));
+
+        while (scanner.hasNextLine()) {
+
+            String[] values = scanner.nextLine().split(",");
+
+                /*
+
+                Values array will look like this
+
+                0 = "city"
+                1 = "city_ascii"
+                2 = "lat"
+                3 = "lng"
+                4 = "country"
+                5 = "iso2"
+                6 = "iso3"
+                7 = "admin_name"
+                8 = "capital"
+                9 = "population"
+                10 = "id"
+                 */
+
+            try {
+                City city = new City(values[0]);
+                city.setLongitude(Double.parseDouble(values[3]));
+                city.setLatitude(Double.parseDouble(values[2]));
+
+                cityList.add(city);
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+
+    public City getCityByName(String cityName) throws Exception {
+        for (City city : this.cityList) {
+            if (city.getName().equals(cityName)) {
+                return city;
+            }
+        }
+        throw new Exception("City not found exception");
+    }
 
     // Count unique instances in a JSON array
     public int uniqueInstances(JSONArray array) {
@@ -32,7 +87,7 @@ public class DataManager {
 
     }
 
-    public String GetDataFromURL(String url) {
+    public String getDataFromURL(String url) {
 
         StringBuilder outputString = new StringBuilder();
 
@@ -63,4 +118,7 @@ public class DataManager {
 
     }
 
+    public Set<City> getCityList() {
+        return this.cityList;
+    }
 }
