@@ -13,10 +13,11 @@ import java.util.*;
 public class DataManager {
 
     private Set<City> cityList;
+    private Set<Person> personSet;
 
     public DataManager() throws Exception {
         this.cityList = new HashSet<>();
-        this.loadCityData();
+        this.personSet = new HashSet<>();
     }
 
     public void loadCityData() throws Exception {
@@ -59,6 +60,33 @@ public class DataManager {
         }
     }
 
+    public void loadPersonData() {
+
+        JSONArray personList = new JSONArray(this.getDataFromURL("https://bpdts-test-app.herokuapp.com/users"));
+
+        for (int i = 0; i < personList.length(); i++) {
+            JSONObject jsonObject = (JSONObject) personList.get(i);
+            int id = jsonObject.getInt("id");
+            double latitude = jsonObject.getDouble("latitude");
+            double longitude = jsonObject.getDouble("longitude");
+
+            Person person = new Person(id);
+            person.setLatitude(latitude);
+            person.setLongitude(longitude);
+
+            personSet.add(person);
+        }
+
+    }
+
+    public Person getPersonByID(int id) throws Exception {
+        for (Person person : this.personSet) {
+            if (person.getId() == id) {
+                return person;
+            }
+        }
+        throw new Exception("Person not found exception");
+    }
 
     public City getCityByName(String cityName) throws Exception {
         for (City city : this.cityList) {
@@ -69,25 +97,7 @@ public class DataManager {
         throw new Exception("City not found exception");
     }
 
-    // Count unique instances in a JSON array
-    public int uniqueInstances(JSONArray array) {
-
-        // Use a set to ensure all values are unique
-        Set<Integer> set = new HashSet<>();
-
-        // Iterate through array
-        for (int i = 0; i < array.length(); i++) {
-
-            // Add by ID
-            JSONObject js = (JSONObject) array.get(i);
-            set.add(js.getInt("id"));
-        }
-
-        return set.size();
-
-    }
-
-    public String getDataFromURL(String url) {
+    private String getDataFromURL(String url) {
 
         StringBuilder outputString = new StringBuilder();
 

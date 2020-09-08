@@ -1,19 +1,13 @@
 package com.example.demo;
 
-import com.example.demo.Lib.MathLib;
+public class Person {
 
-public class City {
-
-    private String name;
+    private int id;
     private double longitude;
     private double latitude;
 
-    public City(String name) {
-        this.name = name;
-    }
-
-    public double distanceFromCity(double lon, double lat) {
-        return MathLib.distance(this.longitude, this.latitude, lon, lat);
+    public Person(int id) {
+        this.id = id;
     }
 
     public void setLongitude(double longitude) {
@@ -24,8 +18,8 @@ public class City {
         this.latitude = latitude;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
     public double getLongitude() {

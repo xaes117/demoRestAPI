@@ -20,11 +20,11 @@ public class PopulationController {
     public Population greeting(@RequestParam(value = "radius", defaultValue = "0") String radius, @PathVariable String city) throws Exception {
 
         DataManager dataManager = new DataManager();
-
-        System.out.println(city);
+        dataManager.loadCityData();
 
         City city1 = dataManager.getCityByName(city);
         System.out.println(city1.getName() + " : " + city1.getLatitude() + " : " + city1.getLongitude());
+
 
         return new Population(counter.incrementAndGet(), String.format(template, radius));
     }

@@ -16,7 +16,11 @@ public class MathLib {
 
         dist = Math.acos(dist);
         dist = Math.toDegrees(dist);
+
+        // Convert to nautical miles
         dist = dist * 60 * 1.1515 * 0.8684;
+
+        // Round answer to nearest mile
         dist = Math.round(dist);
 
         return dist;
