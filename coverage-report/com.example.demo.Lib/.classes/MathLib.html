@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MathLib</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.demo.Lib</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MathLib (com.example.demo.Lib)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MathLib</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/ 2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/ 11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.demo.Lib;
+<i>2</i>&nbsp;
+<b class="nc"><i>3</i>&nbsp;public class MathLib {</b>
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;    public static double distance(double lon1, double lat1, double lon2, double lat2) {
+<i>6</i>&nbsp;
+<b class="fc"><i>7</i>&nbsp;        if ((lat1 == lat2) &amp;&amp; (lon1 == lon2)) {</b>
+<b class="fc"><i>8</i>&nbsp;            return 0;</b>
+<i>9</i>&nbsp;        }
+<i>10</i>&nbsp;
+<b class="fc"><i>11</i>&nbsp;        double theta = lon1 - lon2;</b>
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;        // Use Haversine formula
+<b class="fc"><i>14</i>&nbsp;        double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2))</b>
+<b class="fc"><i>15</i>&nbsp;                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));</b>
+<i>16</i>&nbsp;
+<b class="fc"><i>17</i>&nbsp;        dist = Math.acos(dist);</b>
+<b class="fc"><i>18</i>&nbsp;        dist = Math.toDegrees(dist);</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;        // Convert to nautical miles
+<b class="fc"><i>21</i>&nbsp;        dist = dist * 60 * 1.1515 * 0.8684;</b>
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;        // Round answer to nearest mile
+<b class="fc"><i>24</i>&nbsp;        dist = Math.round(dist);</b>
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;        return dist;</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-09-08 20:55</div>
+</div>
+</body>
+</html>

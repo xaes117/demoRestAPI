@@ -1,0 +1,266 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: DataManager</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.example.demo</a> ]
+</div>
+
+<h1>Coverage Summary for Class: DataManager (com.example.demo)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DataManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (52/ 58)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.example.demo;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.example.demo.DataStructures.City;
+<i>4</i>&nbsp;import com.example.demo.DataStructures.Person;
+<i>5</i>&nbsp;import org.json.JSONArray;
+<i>6</i>&nbsp;import org.json.JSONObject;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.io.BufferedReader;
+<i>9</i>&nbsp;import java.io.File;
+<i>10</i>&nbsp;import java.io.IOException;
+<i>11</i>&nbsp;import java.io.InputStreamReader;
+<i>12</i>&nbsp;import java.net.MalformedURLException;
+<i>13</i>&nbsp;import java.net.URL;
+<i>14</i>&nbsp;import java.net.URLConnection;
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;import java.util.HashSet;
+<i>17</i>&nbsp;import java.util.Objects;
+<i>18</i>&nbsp;import java.util.Scanner;
+<i>19</i>&nbsp;import java.util.Set;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;public class DataManager {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    private final Set&lt;City&gt; cityList;
+<i>24</i>&nbsp;    private final Set&lt;Person&gt; personSet;
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;    public DataManager() throws Exception {</b>
+<b class="fc"><i>27</i>&nbsp;        this.cityList = new HashSet&lt;&gt;();</b>
+<b class="fc"><i>28</i>&nbsp;        this.personSet = new HashSet&lt;&gt;();</b>
+<i>29</i>&nbsp;
+<b class="fc"><i>30</i>&nbsp;        this.loadCityData();</b>
+<b class="fc"><i>31</i>&nbsp;        this.loadPersonData();</b>
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    private void loadCityData() throws Exception {
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;        // Load file
+<b class="fc"><i>37</i>&nbsp;        URL resource = getClass().getClassLoader().getResource(&quot;worldcities.csv&quot;);</b>
+<b class="fc"><i>38</i>&nbsp;        Scanner scanner = new Scanner(new File(Objects.requireNonNull(resource).toURI()));</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;        // Read file
+<b class="fc"><i>41</i>&nbsp;        while (scanner.hasNextLine()) {</b>
+<i>42</i>&nbsp;
+<b class="fc"><i>43</i>&nbsp;            String[] values = scanner.nextLine().split(&quot;,&quot;);</b>
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;                /*
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;                Values array will look like this
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;                0 = &quot;city&quot;
+<i>50</i>&nbsp;                1 = &quot;city_ascii&quot;
+<i>51</i>&nbsp;                2 = &quot;lat&quot;
+<i>52</i>&nbsp;                3 = &quot;lng&quot;
+<i>53</i>&nbsp;                4 = &quot;country&quot;
+<i>54</i>&nbsp;                5 = &quot;iso2&quot;
+<i>55</i>&nbsp;                6 = &quot;iso3&quot;
+<i>56</i>&nbsp;                7 = &quot;admin_name&quot;
+<i>57</i>&nbsp;                8 = &quot;capital&quot;
+<i>58</i>&nbsp;                9 = &quot;population&quot;
+<i>59</i>&nbsp;                10 = &quot;id&quot;
+<i>60</i>&nbsp;                 */
+<i>61</i>&nbsp;
+<i>62</i>&nbsp;            try {
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;                // Create city
+<b class="fc"><i>65</i>&nbsp;                City city = new City(values[0]);</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;                // Set longitude, 3 = &quot;lng&quot;
+<b class="fc"><i>68</i>&nbsp;                city.setLongitude(Double.parseDouble(values[3]));</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;                // Set latitude, 2 = &quot;lat&quot;
+<b class="fc"><i>71</i>&nbsp;                city.setLatitude(Double.parseDouble(values[2]));</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;                // Add to list
+<b class="fc"><i>74</i>&nbsp;                cityList.add(city);</b>
+<i>75</i>&nbsp;
+<b class="fc"><i>76</i>&nbsp;            } catch (Exception ignored) {</b>
+<b class="fc"><i>77</i>&nbsp;            }</b>
+<b class="fc"><i>78</i>&nbsp;        }</b>
+<b class="fc"><i>79</i>&nbsp;    }</b>
+<i>80</i>&nbsp;
+<i>81</i>&nbsp;    private void loadPersonData() {
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;        // Use overloaded function unless you have specific url in mind
+<b class="fc"><i>84</i>&nbsp;        JSONArray personList = new JSONArray(this.getDataFromURL());</b>
+<i>85</i>&nbsp;
+<b class="fc"><i>86</i>&nbsp;        for (int i = 0; i &lt; personList.length(); i++) {</b>
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;            // Assign variables to attributes
+<b class="fc"><i>89</i>&nbsp;            JSONObject jsonObject = (JSONObject) personList.get(i);</b>
+<b class="fc"><i>90</i>&nbsp;            int id = jsonObject.getInt(&quot;id&quot;);</b>
+<b class="fc"><i>91</i>&nbsp;            double latitude = jsonObject.getDouble(&quot;latitude&quot;);</b>
+<b class="fc"><i>92</i>&nbsp;            double longitude = jsonObject.getDouble(&quot;longitude&quot;);</b>
+<i>93</i>&nbsp;
+<i>94</i>&nbsp;            // Create Person object
+<b class="fc"><i>95</i>&nbsp;            Person person = new Person(id);</b>
+<b class="fc"><i>96</i>&nbsp;            person.setLatitude(latitude);</b>
+<b class="fc"><i>97</i>&nbsp;            person.setLongitude(longitude);</b>
+<i>98</i>&nbsp;
+<i>99</i>&nbsp;            // Add to list
+<b class="fc"><i>100</i>&nbsp;            personSet.add(person);</b>
+<i>101</i>&nbsp;        }
+<i>102</i>&nbsp;
+<b class="fc"><i>103</i>&nbsp;    }</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;    public int populationByCity(String cityName) {
+<i>106</i>&nbsp;
+<i>107</i>&nbsp;        // Get data for city
+<b class="fc"><i>108</i>&nbsp;        String data = this.getDataFromURL(&quot;https://bpdts-test-app.herokuapp.com/city/&quot; + cityName + &quot;/users&quot;);</b>
+<i>109</i>&nbsp;
+<i>110</i>&nbsp;        // Convert to JSON array
+<b class="fc"><i>111</i>&nbsp;        JSONArray array = new JSONArray(data);</b>
+<i>112</i>&nbsp;
+<i>113</i>&nbsp;        // Assumes everything in the array is unique
+<i>114</i>&nbsp;        // Consider checking for duplicates
+<b class="fc"><i>115</i>&nbsp;        return array.length();</b>
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;
+<i>119</i>&nbsp;    public Person getPersonByID(int id) throws Exception {
+<i>120</i>&nbsp;
+<i>121</i>&nbsp;        // Iterate through personSet until you find a matching ID
+<b class="fc"><i>122</i>&nbsp;        for (Person person : this.personSet) {</b>
+<b class="fc"><i>123</i>&nbsp;            if (person.getId() == id) {</b>
+<b class="fc"><i>124</i>&nbsp;                return person;</b>
+<i>125</i>&nbsp;            }
+<b class="fc"><i>126</i>&nbsp;        }</b>
+<i>127</i>&nbsp;
+<i>128</i>&nbsp;        // Throw exception if no id found
+<b class="nc"><i>129</i>&nbsp;        throw new Exception(&quot;Person not found exception&quot;);</b>
+<i>130</i>&nbsp;    }
+<i>131</i>&nbsp;
+<i>132</i>&nbsp;    public City getCityByName(String cityName) throws Exception {
+<i>133</i>&nbsp;
+<i>134</i>&nbsp;        // Iterate through cityList until you find a match by city name
+<b class="fc"><i>135</i>&nbsp;        for (City city : this.cityList) {</b>
+<b class="fc"><i>136</i>&nbsp;            if (city.getName().equals(cityName)) {</b>
+<b class="fc"><i>137</i>&nbsp;                return city;</b>
+<i>138</i>&nbsp;            }
+<b class="fc"><i>139</i>&nbsp;        }</b>
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;        // Throw exception if no city found
+<b class="nc"><i>142</i>&nbsp;        throw new Exception(&quot;City not found exception&quot;);</b>
+<i>143</i>&nbsp;    }
+<i>144</i>&nbsp;
+<i>145</i>&nbsp;    private String getDataFromURL() {
+<b class="fc"><i>146</i>&nbsp;        return getDataFromURL(&quot;https://bpdts-test-app.herokuapp.com/users&quot;);</b>
+<i>147</i>&nbsp;    }
+<i>148</i>&nbsp;
+<i>149</i>&nbsp;    private String getDataFromURL(String url) {
+<i>150</i>&nbsp;
+<b class="fc"><i>151</i>&nbsp;        StringBuilder outputString = new StringBuilder();</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;        try {
+<i>154</i>&nbsp;
+<b class="fc"><i>155</i>&nbsp;            URL urlString = new URL(url);</b>
+<b class="fc"><i>156</i>&nbsp;            URLConnection yc = urlString.openConnection();</b>
+<i>157</i>&nbsp;
+<b class="fc"><i>158</i>&nbsp;            BufferedReader in = new BufferedReader(</b>
+<i>159</i>&nbsp;                    new InputStreamReader(
+<b class="fc"><i>160</i>&nbsp;                            yc.getInputStream()));</b>
+<i>161</i>&nbsp;
+<i>162</i>&nbsp;            String inputLine;
+<i>163</i>&nbsp;
+<b class="fc"><i>164</i>&nbsp;            while ((inputLine = in.readLine()) != null) {</b>
+<b class="fc"><i>165</i>&nbsp;                outputString.append(inputLine);</b>
+<i>166</i>&nbsp;            }
+<i>167</i>&nbsp;
+<b class="fc"><i>168</i>&nbsp;            in.close();</b>
+<i>169</i>&nbsp;
+<b class="nc"><i>170</i>&nbsp;        } catch (MalformedURLException e) {</b>
+<b class="nc"><i>171</i>&nbsp;            System.out.println(&quot;Invalid URL&quot;);</b>
+<b class="nc"><i>172</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>173</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>174</i>&nbsp;        }</b>
+<i>175</i>&nbsp;
+<b class="fc"><i>176</i>&nbsp;        return outputString.toString();</b>
+<i>177</i>&nbsp;
+<i>178</i>&nbsp;    }
+<i>179</i>&nbsp;
+<i>180</i>&nbsp;    public Set&lt;Person&gt; getPersonSet() {
+<b class="fc"><i>181</i>&nbsp;        return personSet;</b>
+<i>182</i>&nbsp;    }
+<i>183</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-09-08 20:55</div>
+</div>
+</body>
+</html>
